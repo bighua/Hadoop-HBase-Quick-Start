@@ -108,7 +108,7 @@
         
         - dfs.datanode.data.dir：HDFS文件系统的dataNode节点存储数据的文件夹路径，缺省为${hadoop.tmp.dir}/dfs/data（`hadoop.tmp.dir` 是core-site.xml配置文件中定义的值）
         
-            > 分布式的主从结构：HDFS文件系统架构是典型的主从结构（master-slave），其中nameNode机器节点即是master（只有一个），主要负责管理slave机器，调度来自客户端的读写等;其他的dataNode机器节点即是slave，主要用来存储数据，接受客户端读写操作，数据副本的复制等。下图比较清晰的描述了HDFS的架构![来自官网截图http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html](http://source.8drive.cn/distribute-storage-and-processing/hadoop-hbase-quick-start/raw/master/pic/HDFS%20Arch.png)
+            > 分布式的主从结构：HDFS文件系统架构是典型的主从结构（master-slave），其中nameNode机器节点即是master（只有一个），主要负责管理slave机器，调度来自客户端的读写等;其他的dataNode机器节点即是slave，主要用来存储数据，接受客户端读写操作，数据副本的复制等。下图比较清晰的描述了HDFS的架构![](/bighua/hero/Hadoop-HBase-Quick-Start/master/pic/HDFS%20Arch.png?raw=true)
         
      - mapred-site.xml
        配置目录下有一个模板文件mapred-site.xml.template，使用命令`mv mapred-site.xml.template mapred-site.xml` 改名为mapred-site.xml
@@ -153,7 +153,7 @@
        
           - mapreduce.framework.name：指定执行hadoop job的框架。
 
-            > YARN(MapReduce v2): Hadoop的新一代MapReduce框架，通过[下图](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)简单了解一下yarn的架构如何处理分布式任务![](http://source.8drive.cn/distribute-storage-and-processing/hadoop-hbase-quick-start/raw/master/pic/yarn%20Arch.png "yarn架构图")
+            > YARN(MapReduce v2): Hadoop的新一代MapReduce框架，通过[下图](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)简单了解一下yarn的架构如何处理分布式任务![](/bighua/Hadoop-HBase-Quick-Start/blob/master/pic/yarn%20Arch.png?raw=true "yarn架构图")
                  1. 当`ResourceManager`接收来自`client`的`job submission`后，会在slave节点中选取一个节点作为`App Mstr(Application Master)`。
                  2. `App Mstr`会向`ResourceManager`申请task运行所需的资源，`ResourceManager`根据每个slave节点中的资源状况，以`Container`的形式在slave节点上分配每一个task运行时所需的资源，同时`App Mstr`会监控每个`Container`中task的运行状况。
                  3. 在每个slave上会启动一个`Node Manager`服务，专门监控该slave上所有`Container`的资源使用情况（`Node Status`）,并定时把这些信息报告给`ResourceManager`,`ResourceManager`再根据这些信息来调度task。
@@ -285,9 +285,9 @@
      ```
 
         
-        通过`http://master:18088`查看application的运行状况；  ![](http://source.8drive.cn/distribute-storage-and-processing/hadoop-hbase-quick-start/raw/master/pic/application%20ui.png)
+        通过`http://master:18088`查看application的运行状况；![](/bighua/Hadoop-HBase-Quick-Start/blob/master/pic/application%20ui.png?raw=true)
 
-        通过`http://master:50070`可以查看wordcount在hdfs文件系统的out目录下的输出结果![](http://source.8drive.cn/distribute-storage-and-processing/hadoop-hbase-quick-start/raw/master/pic/hdfs-ui-1.png)![](http://source.8drive.cn/distribute-storage-and-processing/hadoop-hbase-quick-start/raw/master/pic/hdfs-ui-2.png)
+        通过`http://master:50070`可以查看wordcount在hdfs文件系统的out目录下的输出结果![](/bighua/Hadoop-HBase-Quick-Start/blob/master/pic/hdfs-ui-1.png?raw=true)![](/bighua/Hadoop-HBase-Quick-Start/blob/master/pic/hdfs-ui-2.png?raw=true)
     
      - **想要知道怎么开发能在hadoop框架下运行的程序，就需要大家自己去深入研究了。。**
     
