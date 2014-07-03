@@ -4,7 +4,7 @@
  - 准备工作
  - Quick Start
      - Hadoop及HDFS文件系统
-     - 基于HDFS的存储HBase，Cassandra
+     - 基于HDFS的存储HBase
  - 了解更多
 
 ### 写在前面
@@ -153,8 +153,7 @@
        
           - mapreduce.framework.name：指定执行hadoop job的框架。
 
-            > YARN(MapReduce v2): Hadoop的新一代MapReduce框架，通过[下图](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)简单了解一下yarn的架构如何处理分布式任务
-              ![](/pic/yarn%20Arch.png?raw=true "yarn架构图")
+            > YARN(MapReduce v2): Hadoop的新一代MapReduce框架，通过[下图](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)简单了解一下yarn的架构如何处理分布式任务。![](/pic/yarn%20Arch.png?raw=true "yarn架构图")
               1. 当`ResourceManager`接收来自`client`的`job submission`后，会在slave节点中选取一个节点作为`App Mstr(Application Master)`。
               2. `App Mstr`会向`ResourceManager`申请task运行所需的资源，`ResourceManager`根据每个slave节点中的资源状况，以`Container`的形式在slave节点上分配每一个task运行时所需的资源，同时`App Mstr`会监控每个`Container`中task的运行状况。
               3. 在每个slave上会启动一个`Node Manager`服务，专门监控该slave上所有`Container`的资源使用情况（`Node Status`）,并定时把这些信息报告给`ResourceManager`,`ResourceManager`再根据这些信息来调度task。
@@ -293,7 +292,7 @@
     
      - **想要知道怎么开发能在hadoop框架下运行的程序，就需要大家自己去深入研究了。。**
     
-#### 基于HDFS的存储HBase，Cassandra
+#### 基于HDFS的存储HBase
 
 ### 了解更多
 
