@@ -25,7 +25,8 @@
  - SSH：集群中机器之间的通信基于SSH的公私密钥。推荐网上一篇安装指南吧（http://blog.csdn.net/yxc135/article/details/8462506）
  
 ### Quick Start
- 我们通过在安装和配置Hadoop，HBase的过程中，更加直观地理解分布式存储与计算中涉及到的一些基本概念。以下介绍的安装和配置基于 **Hadoop-2.2.0** 和 **HBase-0.96.2** 
+ 我们通过在安装和配置Hadoop，HBase的过程中，更加直观地理解分布式存储与计算中涉及到的一些基本概念。由于Hadoop和HBase由不同团队开发，相互支持的发布版本参见下表。![](/pic/HBase-Hadoop%20version%20support.png?raw=true)
+以下介绍的安装和配置基于 **Hadoop-2.2.0** 和 **HBase-0.96.2** 
     
 #### Hadoop及HDFS文件系统
  - 下载安装Hadoop
@@ -293,6 +294,7 @@
      - **想要知道怎么开发能在hadoop框架下运行的程序，就需要大家自己去深入研究了。。**
     
 #### 基于HDFS的存储HBase
+
 
 ### 了解更多
 
