@@ -233,15 +233,17 @@
         在master机器上启动的服务
 
          > 29559 SecondaryNameNode
-               29271 NameNode
-               30041 Jps
-               29789 ResourceManager
+           29271 NameNode
+           30041 Jps
+           29789 ResourceManager
+           其中NameNode和SecondaryNameNode服务是`start-dfs.sh`启动的hdfs的服务，ResourceManager是`start-yarn.sh`启动的yarn的服务，在前文中已经介绍过相关概念。SecondaryNameNode是用来辅助NameNode同步状态的服务。
         
         在slave-1机器上启动的2个服务（slave机器上的进程是master机器通过SSH远程启动的，不需要在slave上运行上面的`start-dfs.sh`和`start-yarn.sh`命令）
 
          > 5161 DataNode
-               5559 Jps
-               5444 NodeManager
+           5559 Jps
+           5444 NodeManager
+           其中DataNode服务是`start-dfs.sh`启动的hdfs的服务，NodeManager是`start-yarn.sh`启动的yarn的服务
         
         或者通过`hdfs dfsadmin -report`命令查看
 
