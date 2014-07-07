@@ -346,7 +346,9 @@
          - hbase.rootdir：设置hbase数据存储的根目录，这里设定使用HDFS文件系统存储hbase的数据
          - hbase.cluster.distributed：true表示分布式存储；false表示在一个JVM中运行单例存储
          - hbase.zookeeper.quorum：作为zookeeper服务载体的集群服务器的节点；缺省值为localhost，不设置这个属性将会以单例模式，或伪分布式模式运行HBase。HBase在启动时，也会在以上设定的以[,]隔开的hostname(也可以用ip地址)的机器上启动zookeeper服务
+         
             > ZooKeeper: 为分布式应用提供高性能协调服务的框架。HBase内集成了Zookeeper组件，用于管理HBase的分布式集群。
+            
          - hbase.tmp.dir：和hadoop类似的临时目录
      - regionservers：数据存储节点服务器列表，一行一个
         
