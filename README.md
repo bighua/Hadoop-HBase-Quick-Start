@@ -215,59 +215,70 @@
         
         出现这段log信息时，说明format成功，存储路径即是hdfs-site.xml中配置的`dfs.namenode.name.dir` 的路径（以上信息是缺省路径）
     - `hadoop-2.2.0/sbin/start-dfs.sh`，启动hdfs的各个服务进程
-         > log信息：
-            Starting namenodes on [master]
-            master: starting namenode, logging to             /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-namenode-master.out
-            slave-1: starting datanode, logging to /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-datanode-slave-1.out
-            Starting secondary namenodes [0.0.0.0]
-            0.0.0.0: starting secondarynamenode, logging to /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-secondarynamenode-master.out
-        
+         
+        ```
+          log信息：
+          Starting namenodes on [master]
+          master: starting namenode, logging to /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-namenode-master.out
+          slave-1: starting datanode, logging to /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-datanode-slave-1.out
+          Starting secondary namenodes [0.0.0.0]
+          0.0.0.0: starting secondarynamenode, logging to /home/zhuxh/hadoop-2.2.0/logs/hadoop-zhuxh-secondarynamenode-master.out
+        ```
+
          判断服务是否正常启动，根据上面的log信息提示到`hadoop-2.2.0/logs`查看各个服务的log信息
     - `hadoop-2.2.0/sbin/start-yarn.sh`，启动yarn的服务进程
-        > log信息：
-            starting yarn daemons
-            starting resourcemanager, logging to /home/zhuxh/hadoop-2.2.0/logs/yarn-zhuxh-resourcemanager-master.out
-            slave-1: starting nodemanager, logging to /home/zhuxh/hadoop-2.2.0/logs/yarn-zhuxh-nodemanager-slave-1.out
 
-    - `$JAVA_HOME/bin/jps`，查看启动的服务进程（如果安装的jdk的bin目录下木有`jps`，可能安装的版本不对）
-        在master机器上启动的服务
+        ```
+          log信息：
+          starting yarn daemons
+          starting resourcemanager, logging to /home/zhuxh/hadoop-2.2.0/logs/yarn-zhuxh-resourcemanager-master.out
+          slave-1: starting nodemanager, logging to /home/zhuxh/hadoop-2.2.0/logs/yarn-zhuxh-nodemanager-slave-1.out
+        ```
 
-         > 29559 SecondaryNameNode
-           29271 NameNode
-           30041 Jps
-           29789 ResourceManager
-           其中NameNode和SecondaryNameNode服务是`start-dfs.sh`启动的hdfs的服务，ResourceManager是`start-yarn.sh`启动的yarn的服务，在前文中已经介绍过相关概念。SecondaryNameNode是用来辅助NameNode同步状态的服务。
+    - `$JAVA_HOME/bin/jps`，查看启动的服务进程（如果安装的jdk的bin目录下没有`jps`，可能安装的版本不对）
+
+        - 在master机器上启动的服务中，NameNode和SecondaryNameNode服务是`start-dfs.sh`启动的hdfs的服务，ResourceManager是`start-yarn.sh`启动的yarn的服务，在前文中已经介绍过相关概念。SecondaryNameNode是用来辅助NameNode同步状态的服务。
+
+            ```
+            29559 SecondaryNameNode
+            29271 NameNode
+            30041 Jps
+            29789 ResourceManager
+            ```
         
-        在slave-1机器上启动的2个服务（slave机器上的进程是master机器通过SSH远程启动的，不需要在slave上运行上面的`start-dfs.sh`和`start-yarn.sh`命令）
+        - 在slave-1机器上启动的2个服务（slave机器上的进程是master机器通过SSH远程启动的，不需要在slave上运行上面的`start-dfs.sh`和`start-yarn.sh`命令）。其中DataNode服务是`start-dfs.sh`启动的hdfs的服务，NodeManager是`start-yarn.sh`启动的yarn的服务
 
-         > 5161 DataNode
-           5559 Jps
-           5444 NodeManager
-           其中DataNode服务是`start-dfs.sh`启动的hdfs的服务，NodeManager是`start-yarn.sh`启动的yarn的服务
+            ```
+            5161 DataNode
+            5559 Jps
+            5444 NodeManager
+            ```
         
-        或者通过`hdfs dfsadmin -report`命令查看
-
-         > Configured Capacity: 40025579520 (37.28 GB)
-                Present Capacity: 27879247872 (25.96 GB)
-                DFS Remaining: 27879198720 (25.96 GB)
-                DFS Used: 49152 (48 KB)
-                DFS Used%: 0.00%
-                Under replicated blocks: 0
-                Blocks with corrupt replicas: 0
-                Missing blocks: 0
-                -------------------------------------------------
-                Datanodes available: 1 (1 total, 0 dead)
-                Live datanodes:
-                Name: 192.168.234.130:50010 (slave-30)
-                Hostname: slave-30
-                Decommission Status : Normal
-                Configured Capacity: 20079898624 (18.70 GB)
-                DFS Used: 24576 (24 KB)
-                Non DFS Used: 6546485248 (6.10 GB)
-                DFS Remaining: 13533388800 (12.60 GB)
-                DFS Used%: 0.00%
-                DFS Remaining%: 67.40%
-                Last contact: Tue Jul 01 23:35:48 PDT 2014
+        - 或者通过`hdfs dfsadmin -report`命令查看
+    
+            ```
+            Configured Capacity: 40025579520 (37.28 GB)
+            Present Capacity: 27879247872 (25.96 GB)
+            DFS Remaining: 27879198720 (25.96 GB)
+            DFS Used: 49152 (48 KB)
+            DFS Used%: 0.00%
+            Under replicated blocks: 0
+            Blocks with corrupt replicas: 0
+            Missing blocks: 0
+            -------------------------------------------------
+            Datanodes available: 1 (1 total, 0 dead)
+            Live datanodes:
+            Name: 192.168.234.130:50010 (slave-30)
+            Hostname: slave-30
+            Decommission Status : Normal
+            Configured Capacity: 20079898624 (18.70 GB)
+            DFS Used: 24576 (24 KB)
+            Non DFS Used: 6546485248 (6.10 GB)
+            DFS Remaining: 13533388800 (12.60 GB)
+            DFS Used%: 0.00%
+            DFS Remaining%: 67.40%
+            Last contact: Tue Jul 01 23:35:48 PDT 2014
+            ```
 
     - 监控hdfs和yarn的运行web UI
          - `http://master:50070` 分布式文件系统Web监控页面
@@ -296,6 +307,171 @@
      - **想要知道怎么开发能在hadoop框架下运行的程序，就需要大家自己去深入研究了。。**
     
 #### 基于HDFS的存储HBase
+
+ - 下载安装HBase
+     - 下载地址：http://apache.fayea.com/apache-mirror/hbase/hbase-0.96.2/hbase-0.96.2-hadoop2-bin.tar.gz
+     - 命令行中：`tar -xzvf hbase-0.96.2-hadoop2-bin.tar.gz`，解压缩到当前路径的文件夹hbase-0.96.2-hadoop2下。 
+ 
+ - 配置HBase
+     - hbase-env.sh：下面的配置在文件中被注释掉，找到后修改下面两行配置
+        > export JAVA_HOME=/usr/lib/jdk1.7.0_45
+
+        > export HBASE_MANAGES_ZK=true #设置为true表示用HBase自带的zookeeper组件。
+
+     - hbase-site.xml
+        
+        ```
+        <configuration>
+          <property>
+            <name>hbase.rootdir</name>
+            <value>hdfs://master:8010/hbase</value>
+          </property>
+          <property>
+            <name>hbase.cluster.distributed</name>
+            <value>true</value>
+            <description>The mode the cluster will be in. Possible values are false for standalone mode and true for distributed mode. If false, startup will run all HBase and ZooKeeper daemons together in the one JVM.
+            </description>
+          </property>
+          <property>
+            <name>hbase.zookeeper.quorum</name>
+            <value>master,slave-1</value>
+          </property>
+          <property>
+            <name>hbase.tmp.dir</name>
+            <value>/home/zhuxh/hbase-0.96.2-hadoop2/tmp</value>
+            <description>Temporary directory on the local filesystem.</description>
+          </property>
+        </configuration>
+        ```
+         - hbase.rootdir：设置hbase数据存储的根目录，这里设定使用HDFS文件系统存储hbase的数据
+         - hbase.cluster.distributed：true表示分布式存储；false表示在一个JVM中运行单例存储
+         - hbase.zookeeper.quorum：作为zookeeper服务载体的集群服务器的节点；缺省值为localhost，不设置这个属性将会以单例模式，或伪分布式模式运行HBase。HBase在启动时，也会在以上设定的以[,]隔开的hostname(也可以用ip地址)的机器上启动zookeeper服务
+            > ZooKeeper: 为分布式应用提供高性能协调服务的框架。HBase内集成了Zookeeper组件，用于管理HBase的分布式集群。
+         - hbase.tmp.dir：和hadoop类似的临时目录
+     - regionservers：数据存储节点服务器列表，一行一个
+        
+        ```
+        slave-1
+        ```
+        
+         > 基于HDFS的HBase架构：HBase是基于主从结构设计的分布式数据库（它的分布式存储是基于HDFS，而HDFS是一个主从结构的分布式文件系统）。regionserver即是用于存储数据的节点。下图描述了HBase的架构以及与zookeeper和HDFS的协同关系（此图基于HBase 0.91.0-SNAPSHOT）![](/pic/HBase%20Arch.png?raw=true)
+            
+ - 启动HBase
+     以上的配置文件在master机器上配置完后，可直接拷贝到slave机器上
+     - `hbase-0.96.2-hadoop2/bin/start-hbase.sh`
+    
+        ```
+        log信息：
+        slave-1: starting zookeeper, logging to /home/zhuxh/hbase-0.96.2-hadoop2/bin/../logs/hbase-zhuxh-zookeeper-slave-1.out
+        master: starting zookeeper, logging to /home/zhuxh/hbase-0.96.2-hadoop2/bin/../logs/hbase-zhuxh-zookeeper-master.out
+        starting master, logging to /home/zhuxh/hbase-0.96.2-hadoop2/logs/hbase-zhuxh-master-master.out
+        slave-1: starting regionserver, logging to /home/zhuxh/hbase-0.96.2-hadoop2/bin/../logs/hbase-zhuxh-regionserver-slave-1.out
+        ```
+    
+     - `$JAVA_HOME/bin/jps`，查看启动的服务进程。
+        在master机器上，`HQuorumPeer`是Zookeeper启动的服务，`HMaster`是HBase启动的服务
+
+        ```
+        29559 SecondaryNameNode
+        29271 NameNode
+        53026 Jps
+        52755 HQuorumPeer
+        29789 ResourceManager
+        52814 HMaster
+        ```
+        
+        在slave机器上,`HQuorumPeer`是Zookeeper启动的服务，`HRegionServer`是HBase启动的服务
+        
+        ```
+        5161 DataNode
+        25000 HRegionServer
+        25059 Jps
+        5444 NodeManager
+        24804 HQuorumPeer
+        ```
+     - 监控HBase服务的webUI
+        - HMaster：http://master:60010
+        - HRegionServer：http://slave-1:60030
+    
+     - **同样，务必看一下上面提到的log文件中是否有错误日志**
+     
+     - 停止hdfs和yarn：hadoop-2.2.0/sbin/stop-dfs.sh，hadoop-2.2.0/sbin/stop-yarn.sh
+     
+ - 测试
+    我们通过REST客户端来操作HBase数据库。
+     - 创建表并启动REST客户端
+        
+        ```
+        在master机器上，命令行下执行以下命令：
+        cd hbase-0.96.2-hadoop2/bin/
+        hbase shell #进入hbase的命令行模式，会出现这种提示符 【2.0.0-p247 :001 >】，在它后面输入命令。
+        2.0.0-p247 :001 > create 'testtable','colFamily1'
+        2.0.0-p247 :002 > exit #退出hbase命令行
+        hbase rest start -p 9000 #开启REST客户端（端口号：9000）
+        ```
+     - 建立一个java工程来操作HBase数据库
+         - 需要的jar包：把master机器上`hbase-0.96.2-hadoop2/lib`目录下的jar包都引入到工程的classpath
+         - 编写一个类通过REST客户端操作HBase数据库
+            ```
+            /**
+             * 目前使用的版本是：hbase-0.96.2,hadoop2
+             * @author zhuxh
+             *
+             */
+            public class RestClient {
+            	
+            	private Client client = null;
+            	
+            	public RestClient() {
+            		Cluster cluster = new Cluster();
+                    // 连接master机器上开启的REST客户端
+            		cluster.add("master", 9000); 
+            		client = new Client(cluster); 
+            	}
+            	
+            	public void write() throws IOException {
+            
+            		RemoteHTable table = new RemoteHTable(client, "testtable"); 
+                    Put p = new Put(Bytes.toBytes("myRow"));
+                    p.add(Bytes.toBytes("colFamily1"), Bytes.toBytes("someQualifier"),
+                            Bytes.toBytes("Some Value"));
+                    table.put(p);
+            	}
+            	
+            	public void read() throws IOException {
+            		RemoteHTable table = new RemoteHTable(client, "testtable"); 
+                    Get g = new Get(Bytes.toBytes("myRow"));
+                    Result r = table.get(g);
+                    byte[] value = r.getValue(Bytes.toBytes("colFamily1"),
+                            Bytes.toBytes("someQualifier"));
+                    String valueStr = Bytes.toString(value);
+                    System.out.println("GET: " + valueStr);
+            	}
+            	
+            	public void scan() throws IOException {
+            
+            		RemoteHTable table = new RemoteHTable(client, "testtable"); 
+                    Scan s = new Scan();
+                    s.addColumn(Bytes.toBytes("colFamily1"), Bytes.toBytes("someQualifier"));
+                    ResultScanner scanner = table.getScanner(s);
+                    try {
+                        for (Result rr : scanner) {
+                            System.out.println("Found row: " + rr);
+                        }
+                    } finally {
+                        scanner.close();
+                    }
+            	}
+            	
+            	public static void main(String[] args) throws IOException {
+            		RestClient client = new RestClient();
+            		client.write();
+            		client.read();
+            		client.scan();
+            	}
+            }
+            ```
+         - 程序里涉及到HBase的相关知识，需要大家自己去了解了。。。
 
 
 ### 了解更多
