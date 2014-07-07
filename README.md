@@ -369,26 +369,27 @@
         ```
     
      - `$JAVA_HOME/bin/jps`，查看启动的服务进程。
-        在master机器上，`HQuorumPeer`是Zookeeper启动的服务，`HMaster`是HBase启动的服务
+        - 在master机器上，`HQuorumPeer`是Zookeeper启动的服务，`HMaster`是HBase启动的服务
 
-        ```
-        29559 SecondaryNameNode
-        29271 NameNode
-        53026 Jps
-        52755 HQuorumPeer
-        29789 ResourceManager
-        52814 HMaster
-        ```
+            ```
+            29559 SecondaryNameNode
+            29271 NameNode
+            53026 Jps
+            52755 HQuorumPeer
+            29789 ResourceManager
+            52814 HMaster
+            ```
         
-        在slave机器上,`HQuorumPeer`是Zookeeper启动的服务，`HRegionServer`是HBase启动的服务
+        - 在slave机器上,`HQuorumPeer`是Zookeeper启动的服务，`HRegionServer`是HBase启动的服务
         
-        ```
-        5161 DataNode
-        25000 HRegionServer
-        25059 Jps
-        5444 NodeManager
-        24804 HQuorumPeer
-        ```
+            ```
+            5161 DataNode
+            25000 HRegionServer
+            25059 Jps
+            5444 NodeManager
+            24804 HQuorumPeer
+            ```
+            
      - 监控HBase服务的webUI
         - HMaster：http://master:60010
         - HRegionServer：http://slave-1:60030
