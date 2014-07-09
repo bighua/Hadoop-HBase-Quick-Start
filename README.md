@@ -36,7 +36,7 @@
  - 配置Hadoop和HDFS
    配置文件都在`hadoop-2.2.0/etc/hadoop/`目录下
     
-     - hadoop-env.xml：找到这行注释 `# The java implementation to use.` ，然后将下面的配置贴在注释下面，`JAVA_HOME`,`HADOOP_HOME`改成自己机器jdk和hadoop的安装路径。 **在64位机器上，最后两行的配置是必须的，32位机器上可以删掉**
+     - hadoop-env.sh：找到这行注释 `# The java implementation to use.` ，然后将下面的配置贴在注释下面，`JAVA_HOME`,`HADOOP_HOME`改成自己机器jdk和hadoop的安装路径。 **在64位机器上，最后两行的配置是必须的，32位机器上可以删掉**
         
        ```
         # The java implementation to use.
